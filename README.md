@@ -16,8 +16,19 @@ Example:
     ```
     ff --bank-holiday
     ```
-    Output will indicate whether today is a bank holiday in the US (or another country if implemented later).</li>
-
+    Output will indicate whether today is a bank holiday in the UK (or another country if implemented later).</li>
+3. Days until:
+FastFind can tell you how many days until a date in the future.
+Example:
+    ```
+    ff --days-until 23-4-2030
+    ```
+4. Weather:
+FastFind will print the weather for a specific location for today or the next week
+Example:
+    ```
+    ff --weather london (--week)
+    ```
 </ol>
 
 

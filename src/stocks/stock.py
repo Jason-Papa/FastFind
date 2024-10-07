@@ -18,17 +18,3 @@ def fetch_stock_value(stock_symbol, period='1d'):
     else:
         print(f"Failed to retrieve data for {stock_symbol}")
 
-def main():
-    # Set up command-line argument parsing
-    parser = argparse.ArgumentParser(description="Fetch current stock value using Yahoo Finance")
-    parser.add_argument('--stock', required=True, help='The stock symbol to fetch (e.g., "^GSPC" for S&P 500 and AAPL for Apple)')
-    
-    # Parse the arguments
-    args = parser.parse_args()
-    
-    # Fetch and print the stock value
-    fetch_stock_value(args.stock)
-
-if __name__ == "__main__":
-    main()
-
