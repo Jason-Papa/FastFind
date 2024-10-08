@@ -2,6 +2,7 @@ import argparse
 from src.calendar.bank_holiday import next_holiday
 from src.calendar.days_until import parse_date_until_string
 from src.calendar.time_location import get_time_location
+from src.calendar.sunrise_sunset import get_sunrise_sunset
 from src.finance.stocks.stock import fetch_stock_value
 from src.weather import get_weather
 from src.finance.exchange_rate import get_exchange_rate
@@ -15,6 +16,7 @@ def main():
     parser.add_argument('--stock', '-s',  help="The stock symbol to fetch (e.g., AAPL, ^GSPC for S&P 500).")
     parser.add_argument('--bank-holiday', '-bh', action='store_true', help="Check when is the next bank holiday.")
     parser.add_argument('--days-until', '-du', type=str, help="Calculates how many days are left until the specified date (dd-mm-yyyy).")
+    parser.add_argument('--sunrise-sunset', '-ss', type=str, help="Returns the sunrise and sunset times in the selected location")
     parser.add_argument('--time-in', '-ti', type=str, help="Returns the time in selected location (eg. Europe/London, Athens etc)")
     parser.add_argument('--weather', '-w', type=str, help="Returns the weather for a specific location.")
     group = parser.add_mutually_exclusive_group()
@@ -41,6 +43,9 @@ def main():
     
     elif args.time_in:
         get_time_location(args.time_in)
+    
+    elif args.sunrise_sunset:
+        get_sunrise_sunset(args.sunrise_sunset)
 
     elif args.days_until:
         parse_date_until_string(args.days_until)
