@@ -11,6 +11,9 @@ from src.networking.ip import get_public_ip
 from src.networking.speedtest import perform_speedtest
 from src.language.translate import translate_text
 from src.language.synonyms import find_synonyms
+from src.email.temp_email import create_email_wait_for_message
+from src.calendar.calendar_events import calendar_events
+from src.fun.random_facts import generate_random_fact 
 
 def main():
     # Set up command-line argument parsing
@@ -22,7 +25,7 @@ def main():
     parser.add_argument('--time-in', '-ti', type=str, help="Returns the time in selected location (eg. Europe/London, Athens etc)")
     parser.add_argument('--weather', '-w', type=str, help="Returns the weather for a specific location.")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('--days', '-d', type=int, default=1, help="Get weather for the next n days.")
+    group.add_argument('--days', '-ds', type=int, default=1, help="Get weather for the next n days.")
     parser.add_argument(
         '--exchange-rate', '-er', nargs=2, metavar=('BASE', 'TARGET'),
         help="Get the exchange rate between two currencies (e.g., USD EUR)."
@@ -38,6 +41,13 @@ def main():
 
     parser.add_argument('--synonym', '-sy', type=str, help="Gives synonyms for a word")
     parser.add_argument('--limit', '-l', default=10, type=int, help="Limit of the number of synonyms returned (default = 10)")
+
+    parser.add_argument('--temporary-email', '-te', action='store_true', help="Create temporary email and wait for message")
+
+    parser.add_argument('--calendar', '-ca', action='store_true', help="Fetches events for a day in the week from google calendar")
+    parser.add_argument('--day', '-d', type=str, default='today', help="Determines which day to fetch calendar events from")
+
+    parser.add_argument('--random-fact', '-rf', action='store_true', help="Generate random fact.")
     # add verbose options
     # Parse the arguments
     args = parser.parse_args()
@@ -81,7 +91,14 @@ def main():
     elif args.synonym:
         find_synonyms(args.synonym, limit= args.limit)
 
+    elif args.temporary_email:
+        create_email_wait_for_message()
 
+    elif args.calendar:
+        calendar_events(args.day)
+
+    elif args.random_fact:
+        generate_random_fact()
 
 if __name__ == "__main__":
     main()
