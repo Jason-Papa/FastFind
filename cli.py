@@ -9,6 +9,8 @@ from src.finance.exchange_rate import get_exchange_rate
 from src.finance.crypto import get_crypto_price
 from src.networking.ip import get_public_ip
 from src.networking.speedtest import perform_speedtest
+from src.language.translate import translate_text
+from src.language.synonyms import find_synonyms
 
 def main():
     # Set up command-line argument parsing
@@ -29,6 +31,13 @@ def main():
     parser.add_argument('--my-ip', '-ip', action='store_true', help="Prints out the public ip address of the computer")
     parser.add_argument('--speedtest', '-st', action='store_true', help="Performs a speedtest of the internet connection")
 
+    
+    parser.add_argument('--translate', '-tr', type=str, help="Translate text to language determined by --target and --source")
+    parser.add_argument('--source', '-src', type=str, help="Source language of the text to translate")
+    parser.add_argument('--target', '-trg', type=str, help="Target language of the translated text")
+
+    parser.add_argument('--synonym', '-sy', type=str, help="Gives synonyms for a word")
+    parser.add_argument('--limit', '-l', default=10, type=int, help="Limit of the number of synonyms returned (default = 10)")
     # add verbose options
     # Parse the arguments
     args = parser.parse_args()
@@ -65,6 +74,14 @@ def main():
     
     elif args.speedtest:
         perform_speedtest()
+    
+    elif args.translate:
+        translate_text(args.translate,source_lang=args.source , target_lang=args.target)
+
+    elif args.synonym:
+        find_synonyms(args.synonym, limit= args.limit)
+
+
 
 if __name__ == "__main__":
     main()
